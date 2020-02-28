@@ -1,0 +1,78 @@
+
+<!-- html & css design by Khashayar Panbeiyan -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Log in form</title>
+      <link rel="stylesheet" type="text/css" href="style.css"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="./inputValidator.js"></script>
+      <meta charset="utf-8"/>
+  </head>
+  <body>
+      <div class="box">
+        <h1>Login</h1>
+        <form id="formId">
+          <div class="inputbox">
+            <input type="text" name="username" required>
+            <label>Username</label>
+          </div>
+
+          <div class="inputbox">
+            <input type="password" name="password" required>
+            <label>password</label>
+          </div>
+          <input type="submit" value="submit">
+        </form>
+      </div>
+      <script>
+
+          //!!! inputValidator REQUIRES JQUERY
+          $('document').ready(function(){
+
+            //Creating a new object from inputValidator class and setting the options
+            var iv = new inputValidator("formId",{
+              
+              //Min length of the input value (default: 6)(Checks all of the inputs)
+              inputMinLength: 10,
+
+              //Max length of the input value (default: 20)(Checks all of the inputs)
+              inputMaxLength: 15,
+
+              //Ignores general length Check
+              ignoreGeneralLength: true,
+
+              //Sets specific length range for each element
+              inputsLengthRange:{
+                
+                //Works with name attr of the element
+                username: [3,10],
+                password: [10,20]
+
+              },
+
+              //Ignores specific elements validation (Works with name attr)
+              ignoreElements: ['password'],
+
+              //Sets illegal characters
+              //Default: ["!","@","#","$","%","^","&","*","(",")","-","+","=","[","]","{","}",";",",","/","?",">","<","~","|"," "]
+              illegalChars: ['-','='],
+
+              //Sets css styles for the element error has occured on (Default is no style)
+              style: "border-color:red;color:red;"
+
+            });
+            $("#formId").submit(function(e){
+
+                if(iv.validate() === false){
+                  e.preventDefault();
+                }
+                
+            });
+
+          });
+        
+      </script>
+  </body>
+</html>
